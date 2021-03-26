@@ -218,7 +218,7 @@ string_t *write_event_messagenew(struct push_notification_driver_txn *dtxn, stru
 
   if (data->date != -1) {
     struct tm *tm = gmtime(&data->date);
-    str_printfa(str, ",\"date\":\"%s\",\"date2\":\"%s\"", iso8601_date_create_tm(tm, data->date_tz), tm);
+    str_printfa(str, ",\"date\":\"%s\",\"date2\":\"%s\"", iso8601_date_create_tm(tm, data->date_tz), data->date_tz);
   }
 
   if (data->from != NULL) {
