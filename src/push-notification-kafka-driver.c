@@ -501,7 +501,7 @@ static void push_notification_driver_kafka_process_mbox(struct push_notification
       push_notification_driver_debug(LOG_LABEL, user, "process_mbox - user=%s, mailbox=%s, event=%s", user->username,
                                      mbox->mailbox, event_name);
       i_debug("%sprocess_mbox - user=%s, mailbox=%s, event=%s", LOG_LABEL, user->username,
-                                     mbox->mailbox, event_name");                                  
+                                     mbox->mailbox, event_name);                                  
 
       string_t *str = push_notification_driver_kafka_render_mbox(dtxn, &ctx->render_ctx, mbox, event);
 
