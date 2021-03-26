@@ -436,7 +436,7 @@ static int push_notification_driver_kafka_init(struct push_notification_driver_c
   i_debug("%sinit - topic=%s, brokers=%s, keyword-prefix=%s, send_flags=%d, "
                                  "enabled=%d, events=[%s], userdb=[%s]", LOG_LABEL,
                                  ctx->topic, kafka_global->brokers, ctx->render_ctx.keyword_prefix,
-                                 ctx->render_ctx.send_flags, ctx->enabled, events, userdb_fields_string");
+                                 ctx->render_ctx.send_flags, ctx->enabled, events, userdb_fields_string);
 
   return 0;
 }
@@ -479,7 +479,7 @@ static bool push_notification_driver_kafka_begin_txn(struct push_notification_dr
   }
 
   push_notification_driver_debug(LOG_LABEL, user, "begin_txn - user=%s, skipped because disabled", user->username);
-  i_debug("%sbegin_txn - user=%s, skipped because disabled", LOG_LABEL, user->username");
+  i_debug("%sbegin_txn - user=%s, skipped because disabled", LOG_LABEL, user->username);
   return FALSE;
 }
 
@@ -494,7 +494,7 @@ static void push_notification_driver_kafka_process_mbox(struct push_notification
     push_notification_driver_debug(LOG_LABEL, user, "process_mbox - user=%s, mailbox=%s", user->username,
                                    mbox->mailbox);
     i_debug("%sprocess_mbox - user=%s, mailbox=%s", LOG_LABEL, user->username,
-                                   mbox->mailbox");                                 
+                                   mbox->mailbox);                                 
     array_foreach(&mbox->eventdata, event) {
       const char *event_name = (*event)->event->event->name;
 
@@ -537,7 +537,7 @@ static void push_notification_driver_kafka_process_msg(struct push_notification_
       const char *event_name = (*event)->event->event->name;
       push_notification_driver_debug(LOG_LABEL, user, "process_msg - user=%s, mailbox=%s, uid=%u, event=%s",
                                      user->username, msg->mailbox, msg->uid, event_name);
-      i_debug("%sprocess_msg - user=%s, mailbox=%s, uid=%u, event=%s", LOG_LABEL
+      i_debug("%sprocess_msg - user=%s, mailbox=%s, uid=%u, event=%s", LOG_LABEL,
                                      user->username, msg->mailbox, msg->uid, event_name);
 
       string_t *str = push_notification_driver_kafka_render_msg(dtxn, &ctx->render_ctx, msg, event);
@@ -554,7 +554,7 @@ static void push_notification_driver_kafka_process_msg(struct push_notification_
   } else {
     push_notification_driver_debug(LOG_LABEL, user, "process_msg - user=%s, mailbox=%s, uid=%u, no eventdata",
                                    user->username, msg->mailbox, msg->uid);
-    i_debug("%sprocess_msg - user=%s, mailbox=%s, uid=%u, no eventdata", LOG_LABEL
+    i_debug("%sprocess_msg - user=%s, mailbox=%s, uid=%u, no eventdata", LOG_LABEL,
                                    user->username, msg->mailbox, msg->uid);
   }
 }
