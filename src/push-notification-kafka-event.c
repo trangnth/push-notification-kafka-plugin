@@ -265,8 +265,9 @@ string_t *write_event_messageappend(struct push_notification_driver_txn *dtxn, s
 
   if (now != -1) {
     struct tm *tm = localtime(&now);
-    str_printfa(str, ",\"date\":\"%s\"", asctime(tm));
-    str_append(str, "\"");
+    char *t = asctime(tm);
+    if (t[strlen(t)-1] == '\n') t[strlen(t)-1] = '\0';
+    str_printfa(str, ",\"date\":\"%s\"", t);
   }
 
   if (data->from != NULL) {
