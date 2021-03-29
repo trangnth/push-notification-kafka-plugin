@@ -489,6 +489,7 @@ static void push_notification_driver_kafka_process_mbox(struct push_notification
       (struct push_notification_driver_kafka_context *)dtxn->duser->context;
   struct mail_user *user = dtxn->ptxn->muser;
   struct push_notification_txn_event *const *event;
+  i_debug("%sprocess_mbox - user=trannggggg", LOG_LABEL);
 
   if (array_is_created(&mbox->eventdata)) {
     push_notification_driver_debug(LOG_LABEL, user, "process_mbox - user=%s, mailbox=%s", user->username,
