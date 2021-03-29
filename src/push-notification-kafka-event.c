@@ -256,16 +256,6 @@ string_t *write_event_messagenew(struct push_notification_driver_txn *dtxn, stru
   return str;
 }
 
-
-struct push_notification_event_messageappend_data_redefine {
-    const char *from;
-    const char *to;
-    const char *subject;
-    time_t date;
-    int date_tz;
-    const char *snippet;
-};
-
 string_t *write_event_messageappend(struct push_notification_driver_txn *dtxn, struct push_notification_txn_msg *msg,
                                     struct push_notification_txn_event *const *event) {
   struct push_notification_event_messageappend_data *data = (*event)->data;
