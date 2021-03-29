@@ -124,6 +124,7 @@ string_t *write_msg_prefix(struct push_notification_driver_txn *dtxn, const char
   string_t *str = str_new(dtxn->ptxn->pool, 512);
   struct push_notification_driver_kafka_context *ctx =
       (struct push_notification_driver_kafka_context *)dtxn->duser->context;
+  time_t now = time(&now);
 
   str_append(str, "{\"user\":\"");
   json_append_escaped(str, dtxn->ptxn->muser->username);
@@ -131,6 +132,13 @@ string_t *write_msg_prefix(struct push_notification_driver_txn *dtxn, const char
 
   if (ctx->userdb_json != NULL) {
     str_append(str, ctx->userdb_json);
+  }
+
+  if (now != -1) {
+    struct tm *tm = localtime(&now);
+    char *t = asctime(tm);
+    if (t[strlen(t)-1] == '\n') t[strlen(t)-1] = '\0';
+    str_printfa(str, "\"event_date\":\"%s\",", t);
   }
 
   str_append(str, "\"mailbox\":\"");
@@ -218,8 +226,8 @@ string_t *write_event_messagenew(struct push_notification_driver_txn *dtxn, stru
   string_t *str = write_msg_prefix(dtxn, (*event)->event->event->name, msg);
 
   if (data->date != -1) {
-    struct tm *tm = localtime(&data->date);
-    str_printfa(str, ",\"date\":\"%s\",\"date2\":\"%c\"", iso8601_date_create_tm(tm, data->date_tz), data->date_tz);
+    struct tm *tm = gmtime(&data->date);
+    str_printfa(str, ",\"date\":\"%s\"", iso8601_date_create_tm(tm, data->date_tz), data->date_tz);
   }
 
   if (data->from != NULL) {
@@ -260,15 +268,6 @@ string_t *write_event_messageappend(struct push_notification_driver_txn *dtxn, s
                                     struct push_notification_txn_event *const *event) {
   struct push_notification_event_messageappend_data *data = (*event)->data;
   string_t *str = write_msg_prefix(dtxn, (*event)->event->event->name, msg);
-
-  time_t now = time(&now);
-
-  if (now != -1) {
-    struct tm *tm = localtime(&now);
-    char *t = asctime(tm);
-    if (t[strlen(t)-1] == '\n') t[strlen(t)-1] = '\0';
-    str_printfa(str, ",\"date\":\"%s\"", t);
-  }
 
   if (data->from != NULL) {
     str_append(str, ",\"from\":\"");
