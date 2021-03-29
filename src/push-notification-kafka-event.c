@@ -245,11 +245,11 @@ string_t *write_event_messagenew(struct push_notification_driver_txn *dtxn, stru
     str_append(str, "\"");
   }
 
-  if (data->message_id != NULL) {
-    str_append(str, ",\"message_id\":\"");
-    json_append_escaped(str, data->message_id);
-    str_append(str, "\"");
-  }
+  // if (data->message_id != NULL) {
+  //   str_append(str, ",\"message_id\":\"");
+  //   json_append_escaped(str, data->message_id);
+  //   str_append(str, "\"");
+  // }
 
   str_append(str, "}");
   return str;
@@ -260,10 +260,10 @@ string_t *write_event_messageappend(struct push_notification_driver_txn *dtxn, s
   struct push_notification_event_messageappend_data *data = (*event)->data;
   string_t *str = write_msg_prefix(dtxn, (*event)->event->event->name, msg);
 
-  // if (data->date != -1) {
-  //   struct tm *tm = gmtime(&data->date);
-  //   str_printfa(str, ",\"date\":\"%s\",\"date2\":\"%s\"", iso8601_date_create_tm(tm, data->date_tz), data->date_tz);
-  // }
+  if (data->date != -1) {
+    struct tm *tm = gmtime(&data->date);
+    str_printfa(str, ",\"date\":\"%s\",\"date2\":\"%s\"", iso8601_date_create_tm(tm, data->date_tz), data->date_tz);
+  }
 
   if (data->from != NULL) {
     str_append(str, ",\"from\":\"");
@@ -288,6 +288,13 @@ string_t *write_event_messageappend(struct push_notification_driver_txn *dtxn, s
     json_append_escaped(str, data->to);
     str_append(str, "\"");
   }
+
+  if (data->message_id != NULL) {
+    str_append(str, ",\"message_id\":\"");
+    json_append_escaped(str, data->message_id);
+    str_append(str, "\"");
+  }
+
   str_append(str, "}");
   return str;
 }
