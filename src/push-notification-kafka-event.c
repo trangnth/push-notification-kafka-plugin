@@ -265,7 +265,7 @@ string_t *write_event_messageappend(struct push_notification_driver_txn *dtxn, s
 
   if (now != -1) {
     struct tm *tm = localtime(&now);
-    str_printfa(str, ",\"date\":\"%s\"", iso8601_date_create_tm(tm, data->date_tz));
+    str_printfa(str, ",\"date\":\"%s\"", asctime(tm));
   }
 
   if (data->from != NULL) {
