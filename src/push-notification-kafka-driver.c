@@ -525,8 +525,6 @@ static void push_notification_driver_kafka_process_msg(struct push_notification_
   struct push_notification_driver_kafka_context *ctx =
       (struct push_notification_driver_kafka_context *)dtxn->duser->context;
   struct mail_user *user = dtxn->ptxn->muser;
-  time_t now;
-  time(&now);
 
   if (array_is_created(&msg->eventdata)) {
     struct push_notification_txn_event *const *event;
@@ -542,7 +540,7 @@ static void push_notification_driver_kafka_process_msg(struct push_notification_
       i_debug("%sprocess_msg - user=%s, mailbox=%s, uid=%u, event=%s", LOG_LABEL,
                                      user->username, msg->mailbox, msg->uid, event_name);
 
-      string_t *str = push_notification_driver_kafka_render_msg(dtxn, &ctx->render_ctx, msg, event, now);
+      string_t *str = push_notification_driver_kafka_render_msg(dtxn, &ctx->render_ctx, msg, event);
 
       if (str != NULL) {
         push_notification_driver_debug(LOG_LABEL, user, "process_msg - sending notification to Kafka: %s", str_c(str));

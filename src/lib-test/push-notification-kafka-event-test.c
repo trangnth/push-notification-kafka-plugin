@@ -180,7 +180,7 @@ static void write_msg_prefix_test(void) {
   event.seq = 1;
 #endif
 
-  string_t *t = write_msg_prefix(&dtxn, "MailboxCreate", &event, 1);
+  string_t *t = write_msg_prefix(&dtxn, "MailboxCreate", &event);
   //  i_info("MSG: %s ", str_c(t));
   test_assert(str_equals(t, test));
   pool_unref(&pool);
@@ -237,7 +237,7 @@ static void write_flags_event_test(void) {
   const char *const *name2 = &k2;
   array_append(&keywords_old, name2, 1);
   enum mail_flags flags_old = MAIL_FLAGGED;
-  string_t *t = write_flags_event(&dtxn, &ctx, "MailboxCreate", &event, flags, &keywords, flags_old, &keywords_old, 1);
+  string_t *t = write_flags_event(&dtxn, &ctx, "MailboxCreate", &event, flags, &keywords, flags_old, &keywords_old);
   // i_info("MSG: %s ", str_c(t));
   test_assert(str_equals(t, test));
 
@@ -258,7 +258,7 @@ static void write_flags_event_test(void) {
   const char *k4 = "k:old_keyword2";
   const char *const *name4 = &k4;
   array_append(&keywords_old, name4, 1);
-  t = write_flags_event(&dtxn, &ctx, "MailboxCreate", &event, flags, &keywords, flags_old, &keywords_old, 1);
+  t = write_flags_event(&dtxn, &ctx, "MailboxCreate", &event, flags, &keywords, flags_old, &keywords_old);
   // i_info("MSG: %s ", str_c(t));
   test_assert(str_equals(t, test2));
 
@@ -276,7 +276,7 @@ static void write_flags_event_test(void) {
 
   flags |= MAIL_FLAGGED;
   flags_old |= MAIL_ANSWERED;
-  t = write_flags_event(&dtxn, &ctx, "MailboxCreate", &event, flags, &keywords, flags_old, &keywords_old, 1);
+  t = write_flags_event(&dtxn, &ctx, "MailboxCreate", &event, flags, &keywords, flags_old, &keywords_old);
   // i_info("MSG: %s ", str_c(t));
 
   test_assert(str_equals(t, test3));
@@ -336,7 +336,7 @@ static void write_event_messagenew_test(void) {
   event.event = &event_cfg;
   struct push_notification_txn_event *const ev = &event;
 
-  string_t *t = write_event_messagenew(&dtxn, &msg, &ev, 1);
+  string_t *t = write_event_messagenew(&dtxn, &msg, &ev);
   // i_info("MSG: %s ", str_c(t));
   test_assert(str_equals(t, test));
 
@@ -393,7 +393,7 @@ static void write_event_messageappend_test(void) {
   event.event = &event_cfg;
   struct push_notification_txn_event *const ev = &event;
 
-  string_t *t = write_event_messageappend(&dtxn, &msg, &ev, 1);
+  string_t *t = write_event_messageappend(&dtxn, &msg, &ev);
   i_info("MSG: %s ", str_c(t));
   i_info("MSG: %s ", str_c(test));
 
