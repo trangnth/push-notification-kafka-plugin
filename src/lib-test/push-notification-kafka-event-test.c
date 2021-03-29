@@ -393,7 +393,7 @@ static void write_event_messageappend_test(void) {
   event.event = &event_cfg;
   struct push_notification_txn_event *const ev = &event;
 
-  string_t *t = write_event_messageappend(&dtxn, &msg, &ev);
+  string_t *t = write_event_messageappend(&dtxn, &msg, &ev, 1);
   i_info("MSG: %s ", str_c(t));
   i_info("MSG: %s ", str_c(test));
 
