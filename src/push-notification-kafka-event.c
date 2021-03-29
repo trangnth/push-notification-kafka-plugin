@@ -257,7 +257,7 @@ string_t *write_event_messagenew(struct push_notification_driver_txn *dtxn, stru
 }
 
 
-struct push_notification_event_messageappend_data {
+struct push_notification_event_messageappend_data_redefine {
     const char *from;
     const char *to;
     const char *subject;
