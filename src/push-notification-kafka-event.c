@@ -218,7 +218,7 @@ string_t *write_event_messagenew(struct push_notification_driver_txn *dtxn, stru
   string_t *str = write_msg_prefix(dtxn, (*event)->event->event->name, msg);
 
   if (data->date != -1) {
-    struct tm *tm = gmtime(&data->date);
+    struct tm *tm = localtime(&data->date);
     str_printfa(str, ",\"date\":\"%s\",\"date2\":\"%c\"", iso8601_date_create_tm(tm, data->date_tz), data->date_tz);
   }
 
@@ -266,74 +266,15 @@ struct push_notification_event_messageappend_data {
     const char *snippet;
 };
 
-static void
-push_notification_event_messageappend_event(struct push_notification_txn *ptxn,
-                                            struct push_notification_event_config *ec,
-                                            struct push_notification_txn_msg *msg,
-                                            struct mail *mail)
-{
-    struct push_notification_event_messageappend_config *config =
-        (struct push_notification_event_messageappend_config *)ec->config;
-    struct push_notification_event_messageappend_data *data;
-    time_t date;
-    int tz;
-    const char *value;
-
-    if (!config->flags) {
-        return;
-    }
-
-    data = push_notification_txn_msg_get_eventdata(msg, EVENT_NAME);
-    if (data == NULL) {
-        data = p_new(ptxn->pool,
-                     struct push_notification_event_messageappend_data, 1);
-        push_notification_txn_msg_set_eventdata(ptxn, msg, ec, data);
-    }
-
-    if ((data->to == NULL) &&
-        (config->flags & PUSH_NOTIFICATION_MESSAGE_HDR_TO) &&
-        (mail_get_first_header(mail, "To", &value) >= 0)) {
-        data->to = p_strdup(ptxn->pool, value);
-    }
-
-    if ((data->from == NULL) &&
-        (config->flags & PUSH_NOTIFICATION_MESSAGE_HDR_FROM) &&
-        (mail_get_first_header(mail, "From", &value) >= 0)) {
-        data->from = p_strdup(ptxn->pool, value);
-    }
-
-    if ((data->subject == NULL) &&
-        (config->flags & PUSH_NOTIFICATION_MESSAGE_HDR_SUBJECT) &&
-        (mail_get_first_header(mail, "Subject", &value) >= 0)) {
-        data->subject = p_strdup(ptxn->pool, value);
-    }
-
-    if ((data->snippet == NULL) &&
-        (config->flags & PUSH_NOTIFICATION_MESSAGE_BODY_SNIPPET) &&
-        (mail_get_special(mail, MAIL_FETCH_BODY_SNIPPET, &value) >= 0)) {
-        /* [0] contains the snippet algorithm, skip over it */
-        i_assert(value[0] != '\0');
-        data->snippet = p_strdup(ptxn->pool, value + 1);
-    }
-
-    if ((data->date == -1) &&
-        (config->flags & PUSH_NOTIFICATION_MESSAGE_HDR_DATE) &&
-        (mail_get_date(mail, &date, &tz) >= 0)) {
-        data->date = date;
-        data->date_tz = tz;
-    }
-}
-
-
 string_t *write_event_messageappend(struct push_notification_driver_txn *dtxn, struct push_notification_txn_msg *msg,
                                     struct push_notification_txn_event *const *event) {
   struct push_notification_event_messageappend_data *data = (*event)->data;
   string_t *str = write_msg_prefix(dtxn, (*event)->event->event->name, msg);
 
-  if (data->date != -1) {
-    struct tm *tm = gmtime(&data->date);
-    str_printfa(str, ",\"date\":\"%s\"", iso8601_date_create_tm(tm, data->date_tz));
-  }
+  // if (data->date != -1) {
+  //   struct tm *tm = localtime(&data->date);
+  //   str_printfa(str, ",\"date\":\"%s\"", iso8601_date_create_tm(tm, data->date_tz));
+  // }
 
   if (data->from != NULL) {
     str_append(str, ",\"from\":\"");
