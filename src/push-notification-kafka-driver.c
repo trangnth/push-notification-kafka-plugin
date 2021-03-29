@@ -433,10 +433,10 @@ static int push_notification_driver_kafka_init(struct push_notification_driver_c
                                  "enabled=%d, events=[%s], userdb=[%s]",
                                  ctx->topic, kafka_global->brokers, ctx->render_ctx.keyword_prefix,
                                  ctx->render_ctx.send_flags, ctx->enabled, events, userdb_fields_string);
-  i_debug("%sinit - topic=%s, brokers=%s, keyword-prefix=%s, send_flags=%d, "
-                                 "enabled=%d, events=[%s], userdb=[%s]", LOG_LABEL,
-                                 ctx->topic, kafka_global->brokers, ctx->render_ctx.keyword_prefix,
-                                 ctx->render_ctx.send_flags, ctx->enabled, events, userdb_fields_string);
+  // i_debug("%sinit - topic=%s, brokers=%s, keyword-prefix=%s, send_flags=%d, "
+  //                                "enabled=%d, events=[%s], userdb=[%s]", LOG_LABEL,
+  //                                ctx->topic, kafka_global->brokers, ctx->render_ctx.keyword_prefix,
+  //                                ctx->render_ctx.send_flags, ctx->enabled, events, userdb_fields_string);
 
   return 0;
 }

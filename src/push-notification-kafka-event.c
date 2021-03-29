@@ -126,19 +126,19 @@ string_t *write_msg_prefix(struct push_notification_driver_txn *dtxn, const char
       (struct push_notification_driver_kafka_context *)dtxn->duser->context;
   time_t now = time(&now);
 
-  str_append(str, "{\"user\":\"");
+  if (now != -1) {
+    struct tm *tm = localtime(&now);
+    char *t = asctime(tm);
+    if (t[strlen(t)-1] == '\n') t[strlen(t)-1] = '\0';
+    str_printfa(str, "{\"event_timestamp\":\"%s\",", t);
+  }
+
+  str_append(str, "\"user\":\"");
   json_append_escaped(str, dtxn->ptxn->muser->username);
   str_append(str, "\",");
 
   if (ctx->userdb_json != NULL) {
     str_append(str, ctx->userdb_json);
-  }
-
-  if (now != -1) {
-    struct tm *tm = localtime(&now);
-    char *t = asctime(tm);
-    if (t[strlen(t)-1] == '\n') t[strlen(t)-1] = '\0';
-    str_printfa(str, "\"event_date\":\"%s\",", t);
   }
 
   str_append(str, "\"mailbox\":\"");
