@@ -41,7 +41,7 @@ extern string_t *push_notification_driver_kafka_render_msg(
     struct push_notification_txn_msg *msg, struct push_notification_txn_event *const *event, time_t now);
 
 extern string_t *write_msg_prefix(struct push_notification_driver_txn *dtxn, const char *event_name,
-                                  struct push_notification_txn_msg *msg);
+                                  struct push_notification_txn_msg *msg, time_t now);
 
 extern string_t *write_flags_event(struct push_notification_driver_txn *dtxn,
                                    struct push_notification_driver_kafka_render_context *render_ctx,
