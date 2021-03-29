@@ -237,7 +237,7 @@ static void write_flags_event_test(void) {
   const char *const *name2 = &k2;
   array_append(&keywords_old, name2, 1);
   enum mail_flags flags_old = MAIL_FLAGGED;
-  string_t *t = write_flags_event(&dtxn, &ctx, "MailboxCreate", &event, flags, &keywords, flags_old, &keywords_old);
+  string_t *t = write_flags_event(&dtxn, &ctx, "MailboxCreate", &event, flags, &keywords, flags_old, &keywords_old, 1);
   // i_info("MSG: %s ", str_c(t));
   test_assert(str_equals(t, test));
 
