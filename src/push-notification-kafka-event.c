@@ -131,7 +131,7 @@ string_t *write_msg_prefix(struct push_notification_driver_txn *dtxn, const char
     struct tm *tm = localtime(&now);
     char *t = asctime(tm);
     if (t[strlen(t)-1] == '\n') t[strlen(t)-1] = '\0';
-    str_printfa(str, "{\"event_timestamp\":\"%s\",", t);
+    // str_printfa(str, "{\"event_timestamp\":\"%s\",", t);
     str_printfa(str, "{\"event_timestamp\":\"%ld\",", now);
   }
 
