@@ -271,10 +271,12 @@ string_t *write_event_messageappend(struct push_notification_driver_txn *dtxn, s
   struct push_notification_event_messageappend_data *data = (*event)->data;
   string_t *str = write_msg_prefix(dtxn, (*event)->event->event->name, msg);
 
-  // if (data->date != -1) {
-  //   struct tm *tm = localtime(&data->date);
-  //   str_printfa(str, ",\"date\":\"%s\"", iso8601_date_create_tm(tm, data->date_tz));
-  // }
+  time_t now = time(&now);
+
+  if (now != -1) {
+    struct tm *tm = localtime(&now);
+    str_printfa(str, ",\"date\":\"%s\"", iso8601_date_create_tm(tm, data->date_tz));
+  }
 
   if (data->from != NULL) {
     str_append(str, ",\"from\":\"");
