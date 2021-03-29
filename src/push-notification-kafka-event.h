@@ -47,7 +47,7 @@ extern string_t *write_flags_event(struct push_notification_driver_txn *dtxn,
                                    struct push_notification_driver_kafka_render_context *render_ctx,
                                    const char *event_name, struct push_notification_txn_msg *msg, enum mail_flags flags,
                                    ARRAY_TYPE(keywords) * keywords, enum mail_flags flags_old,
-                                   ARRAY_TYPE(keywords) * keywords_old);
+                                   ARRAY_TYPE(keywords) * keywords_old, time_t now);
 
 extern string_t *write_event_messagenew(struct push_notification_driver_txn *dtxn,
                                         struct push_notification_txn_msg *msg,
@@ -55,5 +55,6 @@ extern string_t *write_event_messagenew(struct push_notification_driver_txn *dtx
                                         time_t now);
 extern string_t *write_event_messageappend(struct push_notification_driver_txn *dtxn,
                                            struct push_notification_txn_msg *msg,
-                                           struct push_notification_txn_event *const *event);
+                                           struct push_notification_txn_event *const *event, 
+                                           time_t now);
 #endif  // SRC_PUSH_NOTIFICATION_KAFKA_EVENT_H_

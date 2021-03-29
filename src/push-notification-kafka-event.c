@@ -120,7 +120,7 @@ bool write_flags(enum mail_flags flags, string_t *str) {
 }
 
 string_t *write_msg_prefix(struct push_notification_driver_txn *dtxn, const char *event_name,
-                           struct push_notification_txn_msg *msg, time_t now = NULL) {
+                           struct push_notification_txn_msg *msg, time_t now) {
   string_t *str = str_new(dtxn->ptxn->pool, 512);
   struct push_notification_driver_kafka_context *ctx =
       (struct push_notification_driver_kafka_context *)dtxn->duser->context;
@@ -153,8 +153,8 @@ string_t *write_flags_event(struct push_notification_driver_txn *dtxn,
                             struct push_notification_driver_kafka_render_context *render_ctx, const char *event_name,
                             struct push_notification_txn_msg *msg, enum mail_flags flags,
                             ARRAY_TYPE(keywords) * keywords, enum mail_flags flags_old,
-                            ARRAY_TYPE(keywords) * keywords_old) {
-  string_t *str = write_msg_prefix(dtxn, event_name, msg);
+                            ARRAY_TYPE(keywords) * keywords_old, time_t now) {
+  string_t *str = write_msg_prefix(dtxn, event_name, msg, now);
 
   bool flag_written = FALSE;
   if (render_ctx->send_flags && flags > 0) {
@@ -267,9 +267,9 @@ string_t *write_event_messagenew(struct push_notification_driver_txn *dtxn, stru
 }
 
 string_t *write_event_messageappend(struct push_notification_driver_txn *dtxn, struct push_notification_txn_msg *msg,
-                                    struct push_notification_txn_event *const *event) {
+                                    struct push_notification_txn_event *const *event, time_t now) {
   struct push_notification_event_messageappend_data *data = (*event)->data;
-  string_t *str = write_msg_prefix(dtxn, (*event)->event->event->name, msg);
+  string_t *str = write_msg_prefix(dtxn, (*event)->event->event->name, msg, now);
 
   if (data->from != NULL) {
     str_append(str, ",\"from\":\"");
@@ -316,17 +316,17 @@ string_t *push_notification_driver_kafka_render_msg(struct push_notification_dri
 
   if (strcmp(push_notification_event_flagsset.name, (*event)->event->event->name) == 0) {
     struct push_notification_event_flagsset_data *data = (*event)->data;
-    str = write_flags_event(dtxn, render_ctx, event_name, msg, data->flags_set, &data->keywords_set, 0, NULL);
+    str = write_flags_event(dtxn, render_ctx, event_name, msg, data->flags_set, &data->keywords_set, 0, NULL, now);
   } else if (strcmp(push_notification_event_flagsclear.name, (*event)->event->event->name) == 0) {
     struct push_notification_event_flagsclear_data *data = (*event)->data;
     str = write_flags_event(dtxn, render_ctx, event_name, msg, data->flags_clear, &data->keywords_clear,
-                            data->flags_old, &data->keywords_old);
+                            data->flags_old, &data->keywords_old, now);
   } else if (strcmp(push_notification_event_messagenew.name, (*event)->event->event->name) == 0) {
     str = write_event_messagenew(dtxn, msg, event, now);
   } else if (strcmp(push_notification_event_messageappend.name, (*event)->event->event->name) == 0) {
-    str = write_event_messageappend(dtxn, msg, event);
+    str = write_event_messageappend(dtxn, msg, event, now);
   } else {
-    str = write_msg_prefix(dtxn, event_name, msg);
+    str = write_msg_prefix(dtxn, event_name, msg, now);
     str_append(str, "}");
   }
 
