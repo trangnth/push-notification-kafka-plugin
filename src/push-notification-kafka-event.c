@@ -244,6 +244,13 @@ string_t *write_event_messagenew(struct push_notification_driver_txn *dtxn, stru
     json_append_escaped(str, data->to);
     str_append(str, "\"");
   }
+
+  if (data->message_id != NULL) {
+    str_append(str, ",\"message_id\":\"");
+    json_append_escaped(str, data->message_id);
+    str_append(str, "\"");
+  }
+
   str_append(str, "}");
   return str;
 }
