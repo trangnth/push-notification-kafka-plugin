@@ -437,11 +437,13 @@ static int push_notification_driver_kafka_init(struct push_notification_driver_c
   //                                "enabled=%d, events=[%s], userdb=[%s]", LOG_LABEL,
   //                                ctx->topic, kafka_global->brokers, ctx->render_ctx.keyword_prefix,
   //                                ctx->render_ctx.send_flags, ctx->enabled, events, userdb_fields_string);
+  i_debug("%sprocess_mbox - user=trannggggg1", LOG_LABEL);
 
   return 0;
 }
 
 static bool push_notification_driver_kafka_begin_txn(struct push_notification_driver_txn *dtxn) {
+  i_debug("%sprocess_mbox - user=trannggggg2", LOG_LABEL);
   struct push_notification_driver_kafka_context *ctx =
       (struct push_notification_driver_kafka_context *)dtxn->duser->context;
   struct mail_user *user = dtxn->ptxn->muser;
