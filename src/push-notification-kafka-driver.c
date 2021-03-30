@@ -437,13 +437,13 @@ static int push_notification_driver_kafka_init(struct push_notification_driver_c
   //                                "enabled=%d, events=[%s], userdb=[%s]", LOG_LABEL,
   //                                ctx->topic, kafka_global->brokers, ctx->render_ctx.keyword_prefix,
   //                                ctx->render_ctx.send_flags, ctx->enabled, events, userdb_fields_string);
-  i_debug("%sprocess_mbox - user=trannggggg1", LOG_LABEL);
+  i_debug("%spush_notification_driver_kafka_init", LOG_LABEL);
 
   return 0;
 }
 
 static bool push_notification_driver_kafka_begin_txn(struct push_notification_driver_txn *dtxn) {
-  i_debug("%sprocess_mbox - user=trannggggg2", LOG_LABEL);
+  i_debug("%spush_notification_driver_kafka_begin_txn", LOG_LABEL);
   struct push_notification_driver_kafka_context *ctx =
       (struct push_notification_driver_kafka_context *)dtxn->duser->context;
   struct mail_user *user = dtxn->ptxn->muser;
@@ -491,7 +491,7 @@ static void push_notification_driver_kafka_process_mbox(struct push_notification
       (struct push_notification_driver_kafka_context *)dtxn->duser->context;
   struct mail_user *user = dtxn->ptxn->muser;
   struct push_notification_txn_event *const *event;
-  i_debug("%sprocess_mbox - user=trannggggg", LOG_LABEL);
+  i_debug("%sprocess_mbox - push_notification_driver_kafka_process_mbox", LOG_LABEL);
 
   if (array_is_created(&mbox->eventdata)) {
     push_notification_driver_debug(LOG_LABEL, user, "process_mbox - user=%s, mailbox=%s", user->username,
