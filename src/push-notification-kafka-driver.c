@@ -443,7 +443,6 @@ static int push_notification_driver_kafka_init(struct push_notification_driver_c
 }
 
 static bool push_notification_driver_kafka_begin_txn(struct push_notification_driver_txn *dtxn) {
-  i_debug("%spush_notification_driver_kafka_begin_txn", LOG_LABEL);
   struct push_notification_driver_kafka_context *ctx =
       (struct push_notification_driver_kafka_context *)dtxn->duser->context;
   struct mail_user *user = dtxn->ptxn->muser;

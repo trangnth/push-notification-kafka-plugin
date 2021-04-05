@@ -59,7 +59,14 @@ string_t *push_notification_driver_kafka_render_mbox(
 
   string_t *str = str_new(dtxn->ptxn->pool, 512);
 
-  str_append(str, "{\"user\":\"");
+  time_t now;
+  time(&now);
+
+  if (now != -1) {
+    str_printfa(str, "{\"event_timestamp\":\"%ld\",", now);
+  }
+
+  str_append(str, "\"user\":\"");
   json_append_escaped(str, user->username);
   str_append(str, "\",\"mailbox\":\"");
   json_append_escaped(str, mbox->mailbox);
