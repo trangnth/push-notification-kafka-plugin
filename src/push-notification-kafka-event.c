@@ -124,7 +124,7 @@ bool write_flags(enum mail_flags flags, string_t *str) {
     flag_written = TRUE;
   }
 
-  i_debug("%sTRANGG - flags: %s", LOG_LABEL, flags);
+  // i_debug("%sTRANGG - flags: %s", LOG_LABEL, flags);
   i_debug("%sTRANGG - flag_written: %s", LOG_LABEL, flag_written);
 
   return flag_written;
