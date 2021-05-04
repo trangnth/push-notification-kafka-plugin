@@ -92,40 +92,40 @@ bool write_flags(enum mail_flags flags, string_t *str) {
     return FALSE;
   }
   if ((flags & MAIL_ANSWERED) != 0) {
-    str_append(str, "\"\\\\Answered\"");
+    str_append(str, "\"\\\\\\\\Answered\"");
     flag_written = TRUE;
   }
   if ((flags & MAIL_FLAGGED) != 0) {
     if (flag_written) {
       str_append(str, ",");
     }
-    str_append(str, "\"\\\\Flagged\"");
+    str_append(str, "\"\\\\\\\\Flagged\"");
     flag_written = TRUE;
   }
   if ((flags & MAIL_DELETED) != 0) {
     if (flag_written) {
       str_append(str, ",");
     }
-    str_append(str, "\"\\\\Deleted\"");
+    str_append(str, "\"\\\\\\\\Deleted\"");
     flag_written = TRUE;
   }
   if ((flags & MAIL_SEEN) != 0) {
     if (flag_written) {
       str_append(str, ",");
     }
-    str_append(str, "\"\\\\Seen\"");
+    str_append(str, "\"\\\\\\\\Seen\"");
     flag_written = TRUE;
   }
   if ((flags & MAIL_DRAFT) != 0) {
     if (flag_written) {
       str_append(str, ",");
     }
-    str_append(str, "\"\\\\Draft\"");
+    str_append(str, "\"\\\\\\\\Draft\"");
     flag_written = TRUE;
   }
 
-  // i_debug("%sTRANGG - flags: %s", LOG_LABEL, flags);
-  // i_debug("%sTRANGG - flag_written: %s", LOG_LABEL, flag_written);
+  i_debug("%sTRANGG - flags: %d", LOG_LABEL, flags);
+  i_debug("%sTRANGG - flag_written", LOG_LABEL);
 
   return flag_written;
 }
