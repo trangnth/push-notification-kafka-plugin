@@ -97,7 +97,7 @@ string_t *push_notification_driver_kafka_render_mbox(
   json_append_escaped(str, user->username);
   str_append(str, "\",\"mailbox\":\"");
   json_append_escaped(str, mbox->mailbox);
-  str_printfa(str, "\",\"event\":\"%s", event_name);
+  str_printfa(str, "\",\"event\":\"%s\"", event_name);
 
   if (strcmp(push_notification_event_mailboxcreate.name, event_name) == 0) {
     struct push_notification_event_mailboxcreate_data *data = (*event)->data;
