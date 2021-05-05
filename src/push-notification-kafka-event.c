@@ -104,7 +104,7 @@ string_t *push_notification_driver_kafka_render_mbox(
     str_printfa(str, ",\"uidvalidity\":%u", data->uid_validity);
   } else if (strcmp(push_notification_event_mailboxrename.name, event_name) == 0) {
     struct push_notification_event_mailboxrename_data *data = (*event)->data;
-    str_append(str, "\",\"oldMailbox\":\"");
+    str_append(str, ",\"oldMailbox\":\"");
     json_append_escaped(str, data->old_mbox);
     str_printfa(str, "\"");
   }
