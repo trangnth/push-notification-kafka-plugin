@@ -31,7 +31,7 @@
 #include "push-notification-event-flagsset.h"
 #include "push-notification-event-flagsclear.h"
 // #include "push-notification-event-messagenew.h"
-#include "push-notification-event-messageappend.h"
+// #include "push-notification-event-messageappend.h"
 
 #include "push-notification-kafka-plugin.h"
 #include "push-notification-kafka-driver.h"
@@ -52,6 +52,16 @@ struct push_notification_event_messagenew_data {
   /* PUSH_NOTIFICATION_MESSAGE_HDR_MESSAGEID */
   const char *msgid;
 };     
+
+struct push_notification_event_messageappend_data {
+    const char *from;
+    const char *to;
+    const char *subject;
+    const char *snippet;
+    time_t date;
+    int date_tz;
+    const char *msgid;
+};
 
 bool str_starts_with(const char *str, const char *prefix) {
   if (str == NULL || prefix == NULL)
