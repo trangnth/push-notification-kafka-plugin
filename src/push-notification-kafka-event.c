@@ -324,11 +324,11 @@ string_t *write_event_messageappend(struct push_notification_driver_txn *dtxn, s
     str_append(str, "\"");
   }
 
-  // if (data->message_id != NULL) {
-  //   str_append(str, ",\"message_id\":\"");
-  //   json_append_escaped(str, data->message_id);
-  //   str_append(str, "\"");
-  // }
+  if (data->msgid != NULL) {
+    str_append(str, ",\"msgid\":\"");
+    json_append_escaped(str, data->msgid);
+    str_append(str, "\"");
+  }
 
   str_append(str, "}");
   return str;
