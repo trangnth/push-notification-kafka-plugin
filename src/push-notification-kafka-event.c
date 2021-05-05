@@ -36,6 +36,23 @@
 #include "push-notification-kafka-plugin.h"
 #include "push-notification-kafka-driver.h"
 
+struct push_notification_event_messagenew_data {
+  /* PUSH_NOTIFICATION_MESSAGE_HDR_FROM */
+  const char *from;
+  /* PUSH_NOTIFICATION_MESSAGE_HDR_TO */
+  const char *to;
+  /* PUSH_NOTIFICATION_MESSAGE_HDR_SUBJECT */
+  const char *subject;
+  /* PUSH_NOTIFICATION_MESSAGE_HDR_DATE */
+  time_t date;
+  int date_tz;
+  /* PUSH_NOTIFICATION_MESSAGE_BODY_SNIPPET */
+  const char *snippet;
+
+  /* PUSH_NOTIFICATION_MESSAGE_HDR_MESSAGEID */
+  const char *msgid;
+};     
+
 bool str_starts_with(const char *str, const char *prefix) {
   if (str == NULL || prefix == NULL)
     return FALSE;
