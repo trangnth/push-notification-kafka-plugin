@@ -30,7 +30,7 @@
 #include "push-notification-event-mailboxrename.h"
 #include "push-notification-event-flagsset.h"
 #include "push-notification-event-flagsclear.h"
-#include "push-notification-event-messagenew.h"
+// #include "push-notification-event-messagenew.h"
 #include "push-notification-event-messageappend.h"
 
 #include "push-notification-kafka-plugin.h"
