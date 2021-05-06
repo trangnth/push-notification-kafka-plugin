@@ -114,16 +114,17 @@ string_t *push_notification_driver_kafka_render_mbox(
 }
 
 bool write_flags(enum mail_flags flags, string_t *str) {
-  // i_debug ("%s write_flags: %s", LOG_LABEL, flags);
-  i_debug ("%s KKKKKKKKKK", LOG_LABEL);
+  i_debug ("%s write_flags: %d", LOG_LABEL, flags);
 
   bool flag_written = FALSE;
   if (str == NULL) {
     return FALSE;
   }
+  int a = 0;
   if ((flags & MAIL_ANSWERED) != 0) {
     str_append(str, "\"\\\\Answered\"");
     flag_written = TRUE;
+    a ++;
   }
   if ((flags & MAIL_FLAGGED) != 0) {
     if (flag_written) {
@@ -131,6 +132,7 @@ bool write_flags(enum mail_flags flags, string_t *str) {
     }
     str_append(str, "\"\\\\Flagged\"");
     flag_written = TRUE;
+    a++;
   }
   if ((flags & MAIL_DELETED) != 0) {
     if (flag_written) {
@@ -138,6 +140,7 @@ bool write_flags(enum mail_flags flags, string_t *str) {
     }
     str_append(str, "\"\\\\Deleted\"");
     flag_written = TRUE;
+    a ++;
   }
   if ((flags & MAIL_SEEN) != 0) {
     if (flag_written) {
@@ -145,6 +148,7 @@ bool write_flags(enum mail_flags flags, string_t *str) {
     }
     str_append(str, "\"\\\\Seen\"");
     flag_written = TRUE;
+    a++;
   }
   if ((flags & MAIL_DRAFT) != 0) {
     if (flag_written) {
@@ -152,10 +156,11 @@ bool write_flags(enum mail_flags flags, string_t *str) {
     }
     str_append(str, "\"\\\\Draft\"");
     flag_written = TRUE;
+    a++;
   }
 
   i_debug("%sTRANGG - flags: %d", LOG_LABEL, flags);
-  i_debug("%sTRANGG - flag_written", LOG_LABEL);
+  i_debug("%sTRANGG - flag_written: a = %d", LOG_LABEL, a);
 
   return flag_written;
 }
@@ -206,10 +211,14 @@ string_t *write_flags_event(struct push_notification_driver_txn *dtxn,
   }
 
   if (render_ctx->send_flags && flags_old > 0) {
+    i_debug (%sCo chay vao oldflags)
     str_append(str, ",\"oldFlags\":[");
     flag_written |= write_flags(flags_old, str);
     str_append(str, "]");
   }
+
+  i_debug("%sTRANGG - flags_old: %d", LOG_LABEL, flags_old);
+  i_debug("%sTRANGG strrr: %s", LOG_LABEL, str);
 
   bool keyword_written = FALSE;
   const char *const *keyword;
