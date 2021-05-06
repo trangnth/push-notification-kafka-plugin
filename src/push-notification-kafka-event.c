@@ -114,8 +114,9 @@ string_t *push_notification_driver_kafka_render_mbox(
 }
 
 bool write_flags(enum mail_flags flags, string_t *str) {
-  i_debug ("%s write_flags: %s", LOG_LABEL, flags);
-  
+  // i_debug ("%s write_flags: %s", LOG_LABEL, flags);
+  i_debug ("%s KKKKKKKKKK", LOG_LABEL);
+
   bool flag_written = FALSE;
   if (str == NULL) {
     return FALSE;
