@@ -218,7 +218,7 @@ string_t *write_flags_event(struct push_notification_driver_txn *dtxn,
   }
 
   i_debug("%sTRANGG - flags_old: %d", LOG_LABEL, flags_old);
-  i_debug("%sTRANGG strrr: %s", LOG_LABEL, str);
+  i_debug("%sTRANGG strrr: %s", LOG_LABEL, str_c(str));
 
   bool keyword_written = FALSE;
   const char *const *keyword;
