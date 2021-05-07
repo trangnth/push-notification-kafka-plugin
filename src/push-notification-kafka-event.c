@@ -210,7 +210,8 @@ string_t *write_flags_event(struct push_notification_driver_txn *dtxn,
     str_append(str, "]");
   }
 
-  if (render_ctx->send_flags && flags_old > 0) {
+  // if (render_ctx->send_flags && flags_old > 0) {
+  if (render_ctx->send_flags) {
     i_debug ("%sCo chay vao oldflags", LOG_LABEL);
     str_append(str, ",\"oldFlags\":[");
     flag_written |= write_flags(flags_old, str);
