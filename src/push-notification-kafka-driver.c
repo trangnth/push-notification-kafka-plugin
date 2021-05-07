@@ -540,7 +540,7 @@ static void push_notification_driver_kafka_process_msg(struct push_notification_
       const char *event_name = (*event)->event->event->name;
       push_notification_driver_debug(LOG_LABEL, user, "process_msg - user=%s, mailbox=%s, uid=%u, event=%s",
                                      user->username, msg->mailbox, msg->uid, event_name);
-      i_debug("%sprocess_msg - user=%s, mailbox=%s, uid=%u, event=%s, count=%s", LOG_LABEL,
+      i_debug("%sprocess_msg - user=%s, mailbox=%s, uid=%u, event=%s, count=%d", LOG_LABEL,
                                      user->username, msg->mailbox, msg->uid, event_name, count);
 
       string_t *str = push_notification_driver_kafka_render_msg(dtxn, &ctx->render_ctx, msg, event);
