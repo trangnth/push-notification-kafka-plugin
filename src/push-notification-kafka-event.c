@@ -193,11 +193,11 @@ string_t *write_msg_prefix(struct push_notification_driver_txn *dtxn, const char
   json_append_escaped(str, msg->mailbox);
   str_printfa(str, "\",\"event\":\"%s\",\"uidvalidity\":%u,\"uids\":[", event_name, msg->uid_validity);
   const uint32_t *u;
-  array_foreach(&msg->uids, u) {
+  array_foreach(&msg->uids, &u) {
     str_printfa(str, "%u, ", *u);
-    str_truncate (str, 2);
+    // str_truncate (str, 2);
   }
-  str_truncate (str, 2);
+  // str_truncate (str, 2);
   str_append(str, "]");
   
 
