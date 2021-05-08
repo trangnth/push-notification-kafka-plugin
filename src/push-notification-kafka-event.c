@@ -191,7 +191,14 @@ string_t *write_msg_prefix(struct push_notification_driver_txn *dtxn, const char
 
   str_append(str, "\"mailbox\":\"");
   json_append_escaped(str, msg->mailbox);
-  str_printfa(str, "\",\"event\":\"%s\",\"uidvalidity\":%u,\"uid\":%u", event_name, msg->uid_validity, msg->uid);
+  str_printfa(str, "\",\"event\":\"%s\",\"uidvalidity\":%u,\"uids\":[", event_name, msg->uid_validity);
+  const uint32_t *u;
+  array_foreach(&msg->uids, u) {
+    str_printfa(str, "%u, ", u);
+  }
+  str_append(str, "]");
+  
+
   return str;
 }
 
@@ -210,8 +217,8 @@ string_t *write_flags_event(struct push_notification_driver_txn *dtxn,
     str_append(str, "]");
   }
 
-  // if (render_ctx->send_flags && flags_old > 0) {
-  if (render_ctx->send_flags) {
+  if (render_ctx->send_flags && flags_old > 0) {
+  // if (render_ctx->send_flags) {
     i_debug ("%sCo chay vao oldflags", LOG_LABEL);
     str_append(str, ",\"oldFlags\":[");
     flag_written |= write_flags(flags_old, str);
