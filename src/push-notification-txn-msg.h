@@ -9,7 +9,7 @@ struct push_notification_event_config;
 struct push_notification_txn;
 struct push_notification_txn_event;
 
-ARRAY_DEFINE_TYPE(msg_uid, const uint32_t *);
+ARRAY_DEFINE_TYPE(msg_uid, uint32_t *);
 
 struct push_notification_txn_msg {
     const char *mailbox;
