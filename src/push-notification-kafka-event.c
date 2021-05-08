@@ -167,7 +167,7 @@ bool write_flags(enum mail_flags flags, string_t *str) {
 
 string_t *write_msg_prefix(struct push_notification_driver_txn *dtxn, const char *event_name,
                            struct push_notification_txn_msg *msg) {
-  string_t *str = str_new(dtxn->ptxn->pool, 512);
+  string_t *str = str_new(dtxn->ptxn->pool, 1024);
   struct push_notification_driver_kafka_context *ctx =
       (struct push_notification_driver_kafka_context *)dtxn->duser->context;
   time_t now;
@@ -193,9 +193,10 @@ string_t *write_msg_prefix(struct push_notification_driver_txn *dtxn, const char
   json_append_escaped(str, msg->mailbox);
   str_printfa(str, "\",\"event\":\"%s\",\"uidvalidity\":%u,\"uids\":[", event_name, msg->uid_validity);
   const uint32_t *u;
+  
   array_foreach(&msg->uids, u) {
     str_printfa(str, "%u, ", *u);
-    i_debug ("%zu", *u);
+    i_debug ("TrANG A");
     // str_truncate (str, 2);
   }
   // str_truncate (str, 2);
