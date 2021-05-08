@@ -29,20 +29,6 @@ struct push_notification_driver_kafka_render_context {
   char *keyword_prefix;
 };
 
-ARRAY_DEFINE_TYPE(msg_uid, const uint32_t *);
-
-struct push_notification_txn_msg {
-    const char *mailbox;
-    uint32_t uid;
-    uint32_t uid_validity;
-
-    ARRAY(struct push_notification_txn_event *) eventdata;
-    ARRAY_TYPE(msg_uid) uids;
-
-    /* Private */
-    unsigned int seq;
-};
-
 // T
 extern bool str_starts_with(const char *str, const char *prefix);
 extern bool write_flags(enum mail_flags flags, string_t *str);
