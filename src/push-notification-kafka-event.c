@@ -195,13 +195,11 @@ string_t *write_msg_prefix(struct push_notification_driver_txn *dtxn, const char
   const uint32_t *u;
   
   array_foreach(&msg->uids, u) {
-    
     if (*u != 0){
       str_printfa(str, "%u, ", *u);
     }
-    str_truncate (str, str_len(str) - 2);
   }
-  str_truncate (str, 2);
+  str_truncate (str, str_len(str) - 2);
   str_append(str, "]");
   
 
