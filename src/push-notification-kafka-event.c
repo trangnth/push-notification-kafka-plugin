@@ -197,6 +197,7 @@ string_t *write_msg_prefix(struct push_notification_driver_txn *dtxn, const char
   array_foreach(&msg->uids, u) {
     str_printfa(str, "%u, ", *u);
     i_debug ("TrANG A");
+    i_debug ("%u", u);
     // str_truncate (str, 2);
   }
   // str_truncate (str, 2);
