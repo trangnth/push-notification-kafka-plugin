@@ -198,12 +198,10 @@ string_t *write_msg_prefix(struct push_notification_driver_txn *dtxn, const char
     
     if (*u != 0){
       str_printfa(str, "%u, ", *u);
-      i_debug ("TrANG A");
-      i_debug ("%u", *u);
     }
     // str_truncate (str, 2);
   }
-  // str_truncate (str, 2);
+  str_truncate (str, 2);
   str_append(str, "]");
   
 
