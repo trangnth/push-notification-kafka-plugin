@@ -63,6 +63,20 @@ struct push_notification_event_messageappend_data {
     const char *msgid;
 };
 
+ARRAY_DEFINE_TYPE(msg_uid, const uint32_t *);
+
+struct push_notification_txn_msg {
+    const char *mailbox;
+    uint32_t uid;
+    uint32_t uid_validity;
+
+    ARRAY(struct push_notification_txn_event *) eventdata;
+    ARRAY_TYPE(msg_uid) uids;
+
+    /* Private */
+    unsigned int seq;
+};
+
 bool str_starts_with(const char *str, const char *prefix) {
   if (str == NULL || prefix == NULL)
     return FALSE;
