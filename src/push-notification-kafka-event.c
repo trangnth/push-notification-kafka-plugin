@@ -194,7 +194,7 @@ string_t *write_msg_prefix(struct push_notification_driver_txn *dtxn, const char
   str_printfa(str, "\",\"event\":\"%s\",\"uidvalidity\":%u,\"uids\":[", event_name, msg->uid_validity);
   const uint32_t *u;
   array_foreach(&msg->uids, u) {
-    str_printfa(str, "%u, ", u);
+    str_printfa(str, "%u, ", *u);
   }
   str_append(str, "]");
   
