@@ -18,6 +18,7 @@
 #include "push-notification-event-mailboxrename.h"
 
 extern struct push_notification_event push_notification_event_mailboxcreate;
+extern struct push_notification_event push_notification_event_mailboxdelete;
 extern struct push_notification_event push_notification_event_mailboxrename;
 extern struct push_notification_event push_notification_event_flagsclear;
 extern struct push_notification_event push_notification_event_flagsset;
