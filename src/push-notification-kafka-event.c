@@ -28,6 +28,7 @@
 #include "push-notification-txn-msg.h"
 #include "push-notification-event-mailboxcreate.h"
 #include "push-notification-event-mailboxrename.h"
+#include "push-notification-event-mailboxdelete.h"
 #include "push-notification-event-flagsset.h"
 #include "push-notification-event-flagsclear.h"
 // #include "push-notification-event-messagenew.h"
