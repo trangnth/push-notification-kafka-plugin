@@ -28,7 +28,7 @@
 #include "push-notification-txn-msg.h"
 #include "push-notification-event-mailboxcreate.h"
 #include "push-notification-event-mailboxrename.h"
-#include "push-notification-event-mailboxdelete.h"
+// #include "push-notification-event-mailboxdelete.h"
 #include "push-notification-event-flagsset.h"
 #include "push-notification-event-flagsclear.h"
 // #include "push-notification-event-messagenew.h"
@@ -64,7 +64,11 @@ struct push_notification_event_messageappend_data {
     const char *msgid;
 };
 
-
+struct push_notification_event_mailboxdelete_data {
+    /* Can only be true. */
+    bool deleted;
+    uint32_t uid_validity;
+};
 
 bool str_starts_with(const char *str, const char *prefix) {
   if (str == NULL || prefix == NULL)
@@ -79,12 +83,6 @@ bool str_starts_with(const char *str, const char *prefix) {
 
   return FALSE;
 }
-
-struct push_notification_event_mailboxdelete_data {
-    /* Can only be true. */
-    bool deleted;
-    uint32_t uid_validity;
-};
 
 string_t *push_notification_driver_kafka_render_mbox(
     struct push_notification_driver_txn *dtxn,
